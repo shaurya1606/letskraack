@@ -1,7 +1,7 @@
 'use client';
 
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 import { AuthCard } from "@/_components/auth/auth-card";
 import { InlineMessage } from "@/_components/auth/inline-message";
@@ -13,7 +13,7 @@ const footerCopy = (
   <p>Still waiting? Resend the verification email or contact support.</p>
 );
 
-export default function CheckEmailPage() {
+function CheckEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [resendCounter, setResendCounter] = useState(0);
@@ -51,5 +51,13 @@ export default function CheckEmailPage() {
         </button>
       </div>
     </AuthCard>
+  );
+}
+
+export default function CheckEmailPage() {
+  return (
+    <Suspense fallback={null}>
+      <CheckEmailContent />
+    </Suspense>
   );
 }
